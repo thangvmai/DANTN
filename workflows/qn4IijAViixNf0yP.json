@@ -1,0 +1,397 @@
+{
+  "active": false,
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Zalo Send Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Peel": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Product": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meso": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mun": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Other": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Zalo Message Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-13T09:26:12.126Z",
+  "id": "qn4IijAViixNf0yP",
+  "isArchived": false,
+  "meta": null,
+  "name": "Chatbot zalo",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Bạn là chatbot tư vấn khách hàng chuyên nghiệp và ngắn gọn cho spa Calla với 5 năm kinh nghiệm.\n\n#Xưng hô: Em với Anh/Chị.\n\n#Tools\n\n- Product: Dùng để tra tên, giá và công dụng của sản phẩm khi khách hàng hỏi.\n- Peel: Dùng để tra tên, giá và công dụng peel khi khách hàng hỏi.\n- Meso: Dùng để tra tên dịch vụ, giá và công dụng của dịch vị Meso khi khách hàng hỏi.\n- Mun: Dùng để tra tên dịch vụ, giá và công dụng của lấy mụn - thải độc khi khách hàng hỏi.\n- Other: Dùng để tra tên dịch vụ, giá và công dụng của những dịch vụ khác khi khách hàng hỏi.\n\n\n#Quy trình trả lời:\n- Luôn dùng tool để kiểm tra thông tin trước khi trả lời. - Chỉ trả lời thông tin có trong dữ liệu.\n- Dịch vụ tổng quan: Khi khách hỏi \"có dịch vụ gì\", chỉ liệt kê các dịch vụ chính và giá có trong dữ liệu.\n- Chi tiết dịch vụ: Khi khách hỏi \"dịch vụ này có gì\" hoặc \"chi tiết dịch vụ\", dùng tool để tra công dụng và trả lời chính xác.\n- Câu hỏi sau của khách hàng phải xem lại dữ liệu câu trước của khách hàng để trả lời khách hàng.\n\n#Sản phẩm:\n- Khi khách hỏi \"có những sản phẩm gì\", dùng tool Product để tra tên và giá sản phẩm.\n- Khi khách hỏi công dụng sản phẩm, dùng tool Product để tìm kiếm và trả lời.\n\n#Dịch vụ theo loại:\n- Peel: Dùng tool Peel để kiểm tra và trả lời tất cả câu hỏi và yêu cầu liên quan đến peel.\n- Meso: Dùng tool Meso để kiểm tra và trả lời tất cả câu hỏi và yêu cầu liên quan đến meso.\n- Lấy mụn/Thải độc: Dùng tool Mun để kiểm tra và trả lời tất cả câu hỏi và yêu cầu liên quan đến lấy mụn - thải độc.\n- Dịch vụ khác: Dùng tool Other để kiểm tra và trả lời tất cả câu hỏi và yêu cầu liên quan đến dịch vụ khác.\n- Dịch vụ/Sản phẩm theo giá: Khi khách hỏi \"có dịch vụ/sản phẩm nào tầm giá...\", dùng tất cả các tool để tìm kiếm chính xác tên và giá của những dịch vụ/sản phẩm trong khoảng giá đó.\n- Không có dữ kiện: Nếu sau khi kiểm tra tất cả các tool mà không có dữ kiện tương tự hoặc giống, trả lời không có một cách chuyên nghiệp và khéo léo.\n- Dịch vụ nào có trong dữ liệu thì không cần gửi link cho khách hàng.\n\n\n#Định dạng trả lời:\n- Khi liệt kê dịch vụ hoặc sản phẩm, xuống dòng và dùng dấu gạch ngang '-' cho từng mục.\n- Không sử dụng các ký tự markdown như '*', '#', v.v.\n- Hình ảnh: Khi khách hỏi liên quan đến hình ảnh, gửi link: https://spacalla.space.\n- Khi khách hàng muốn đặt lịch hoặc mua sản phẩm thì gửi link của cửa hàng cho khách hàng. \nlink: https://spacalla.space.\n\n#Quy tắc:\n- Tất cả câu hỏi liên quan đến dịch vụ và sản phẩm phải dùng tất cả các tool để kiểm tra thông tin trước khi trả lời khách hàng.\n- Chỉ được trả lời tên, giá, công dụng của sản phẩm và dịch vụ tìm được khi sử dụng tool để trả lời khách hàng.\n- Sử dụng đúng tool để kiểm tra tên, giá, công dụng của sản phẩm và dịch vụ trước khi trả lời khách hàng.\n\n#Lưu ý:\n- Đầu ra chỉ là dữ kiện để trả lời khách hàng, không được nói đang dùng tool gì.\n- Không trả lời những sản phẩm và dịch vụ không có trong dữ liệu.\n- Tất cả câu hỏi liên quan đến dịch vụ đều phải dùng tất cả các tool để tìm kiếm tên, giá và công dụng.\n- Tất cả câu hỏi liên quan đến dịch vụ đều phải dùng tất cả các tool để tìm kiếm và trả lời chính xác tên và giá.\n- Tên sản phẩm và dịch vụ cùng giá cả khi trả lời khách hàng phải hoàn toàn chính xác và giống với dữ liệu đã có khi dùng tools.\n- Khi khách hàng hỏi đến sản phẩm hay dịch vụ phải tìm kiếm chính xác tên và giá, nếu không có thì trả lời khách hàng không có một cách khéo léo và chuyên nghiệp.\n\n\n- Current datetime: {{ $now }}\n- tin nhắn đây: {{ $json.message.data.content }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        460,
+        0
+      ],
+      "id": "b3a014b8-67fd-42bc-a9a3-5dcaa14322f4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-05-20",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        60,
+        260
+      ],
+      "id": "b76e5659-2e40-4b8f-99dc-32c87503deae",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "hW68T8M4WmcpmupI",
+          "name": "key cho mess"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.data.msgId }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        240,
+        260
+      ],
+      "id": "97e89a99-a1ab-45f9-9494-917c2ec79f7b",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "ZahZeTe9M5p48bfR",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU",
+          "mode": "list",
+          "cachedResultName": "BẢNG GIÁ SPA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1009427123,
+          "mode": "list",
+          "cachedResultName": "GIÁ PEEL",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit#gid=1009427123"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        560,
+        260
+      ],
+      "id": "e4fd997b-9b93-4326-b90c-6464457a34c0",
+      "name": "Peel",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NwD9wRaB0oLYzty4",
+          "name": "thang"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU",
+          "mode": "list",
+          "cachedResultName": "BẢNG GIÁ SPA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "GIÁ SẢN PHẨM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        400,
+        260
+      ],
+      "id": "80d60846-9f28-46e1-91e6-54cdb143a1d8",
+      "name": "Product",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NwD9wRaB0oLYzty4",
+          "name": "thang"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "threadId": "={{ $('Zalo Message Trigger').item.json.message.data.uidFrom }}",
+        "message": "={{ $json.output }}",
+        "quote": {},
+        "mentions": {}
+      },
+      "type": "n8n-nodes-zalo-tools.zaloSendMessage",
+      "typeVersion": 4,
+      "position": [
+        980,
+        0
+      ],
+      "id": "e356b141-6b07-4d7c-9c33-f1302d6ed116",
+      "name": "Zalo Send Message",
+      "credentials": {
+        "zaloApi": {
+          "id": "4TKcCE0dXkLQL4nn",
+          "name": "Zalo API Credentials"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU",
+          "mode": "list",
+          "cachedResultName": "BẢNG GIÁ SPA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 541415814,
+          "mode": "list",
+          "cachedResultName": "GIÁ MESO",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit#gid=541415814"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        700,
+        260
+      ],
+      "id": "b28397e6-1d0a-43d0-bcd7-cb15c5c9e891",
+      "name": "Meso",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NwD9wRaB0oLYzty4",
+          "name": "thang"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU",
+          "mode": "list",
+          "cachedResultName": "BẢNG GIÁ SPA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1110247173,
+          "mode": "list",
+          "cachedResultName": "LẤY MỤN - THẢI ĐỘC",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit#gid=1110247173"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        860,
+        260
+      ],
+      "id": "fe77b6d3-5353-4725-a9f1-fdca636bc73b",
+      "name": "Mun",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NwD9wRaB0oLYzty4",
+          "name": "thang"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU",
+          "mode": "list",
+          "cachedResultName": "BẢNG GIÁ SPA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 462113703,
+          "mode": "list",
+          "cachedResultName": "KHÁC",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1B24vujiYCwEvH75ogxNOHpAiaTuAn9kEo0Mh8jsZOrU/edit#gid=462113703"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        1020,
+        260
+      ],
+      "id": "176156b6-540f-4393-9fe4-45eb9cb9fe8e",
+      "name": "Other",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NwD9wRaB0oLYzty4",
+          "name": "thang"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-zalo-tools.zaloMessageTrigger",
+      "typeVersion": 1,
+      "position": [
+        180,
+        0
+      ],
+      "id": "6ab11c56-2b68-4407-b390-9405f6c2aa67",
+      "name": "Zalo Message Trigger",
+      "webhookId": "75e62755-5123-4c4d-8a1f-0bf3a6fa3603",
+      "credentials": {
+        "zaloApi": {
+          "id": "4TKcCE0dXkLQL4nn",
+          "name": "Zalo API Credentials"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-zalo-tools.zaloLoginByQr",
+      "typeVersion": 1,
+      "position": [
+        360,
+        -180
+      ],
+      "id": "e4f91a9c-4f7e-4556-a275-289922ee81ed",
+      "name": "Zalo Login Via QR Code",
+      "credentials": {
+        "n8nZaloApi": {
+          "id": "mC8gkK1BF8xOSSrA",
+          "name": "n8n Zalo Account Credential account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-23T10:35:59.101Z",
+  "versionId": "ceabfb3e-c385-48a1-a38b-18f3da74a65c"
+}
