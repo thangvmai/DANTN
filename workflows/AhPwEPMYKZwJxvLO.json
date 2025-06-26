@@ -1,0 +1,326 @@
+{
+  "active": false,
+  "connections": {
+    "Globals": {
+      "main": [
+        [
+          {
+            "node": "Get all files in given path",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split the result": {
+      "main": [
+        [
+          {
+            "node": "Get file content from GitHub",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert files to JSON": {
+      "main": [
+        [
+          {
+            "node": "Check for skipped Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get all files in given path": {
+      "main": [
+        [
+          {
+            "node": "Split the result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get file content from GitHub": {
+      "main": [
+        [
+          {
+            "node": "Convert files to JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for skipped Credentials": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Restore n8n Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Globals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-10T07:51:26.098Z",
+  "id": "AhPwEPMYKZwJxvLO",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "restore credential",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a0c3fd87-8cba-42c9-8d61-5b69f0240010",
+      "name": "When clicking ‘Test workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        660,
+        20
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Restore from GitHub \nThis workflow will restore all instance credentials from GitHub backups.\n\n\n### Setup\nOpen `Globals` node and update the values below 👇\n\n- **repo.owner:** your Github username\n- **repo.name:** the name of your repository\n- **repo.path:** the folder to use within the repository.\n\n\nIf your username was `john-doe` and your repository was called `n8n-backups` and you wanted the credentials to go into a `credentials` folder you would set:\n\n- repo.owner - john-doe\n- repo.name - n8n-backups\n- repo.path - credentials/\n",
+        "height": 420,
+        "width": 320
+      },
+      "id": "d438717a-7321-4cf1-b411-9030ce0500ec",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6cf546c5-5737-4dbd-851b-17d68e0a3780",
+              "name": "repo.owner",
+              "type": "string",
+              "value": "thangvmai"
+            },
+            {
+              "id": "452efa28-2dc6-4ea3-a7a2-c35d100d0382",
+              "name": "repo.name",
+              "type": "string",
+              "value": "backup"
+            },
+            {
+              "id": "81c4dc54-86bf-4432-a23f-22c7ea831e74",
+              "name": "repo.path",
+              "type": "string",
+              "value": "credentials"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "85bc6d7c-dec7-41cc-83fb-4f289737f97b",
+      "name": "Globals",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        920,
+        20
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "content": "## Skip credential\n- The empty json files\n- The n8n account api\n- ...edit this node at will",
+        "color": 4
+      },
+      "id": "a55ca966-c840-481c-8591-53b8e5789bd3",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1400,
+        160
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "=https://api.github.com/repos/{{ $json.repo.owner }}/{{ $json.repo.name }}/contents/{{ $json.repo.path }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "githubApi",
+        "options": {}
+      },
+      "id": "7de25b1d-a87d-4a6a-9f74-cd30425a0516",
+      "name": "Get all files in given path",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        1140,
+        20
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "githubApi": {
+          "id": "O4kSjmbhMmtlQd3g",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "path",
+        "options": {}
+      },
+      "id": "41c49f6b-0b3c-4ae4-a387-913706fee073",
+      "name": "Split the result",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        700,
+        340
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "={{ $('Globals').item.json.repo.owner }}",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "={{ $('Globals').item.json.repo.name }}",
+          "mode": "name"
+        },
+        "filePath": "={{ $('Get all files in given path').item.json.path }}",
+        "additionalParameters": {}
+      },
+      "id": "daf84cc1-76b8-4356-bcca-a403aa4aada0",
+      "name": "Get file content from GitHub",
+      "type": "n8n-nodes-base.github",
+      "position": [
+        940,
+        340
+      ],
+      "typeVersion": 1,
+      "alwaysOutputData": true,
+      "webhookId": "168b84c5-a859-4403-836c-2acd97d716c4",
+      "credentials": {
+        "githubApi": {
+          "id": "O4kSjmbhMmtlQd3g",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "id": "a5307ca5-64cc-43c6-87bf-5d0f8edc4b93",
+      "name": "Convert files to JSON",
+      "type": "n8n-nodes-base.extractFromFile",
+      "position": [
+        1160,
+        340
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "credential",
+        "name": "={{ $json.data.name }}",
+        "credentialTypeName": "={{ $json.data.type }}",
+        "data": "={{ JSON.stringify($json.data.data) }}",
+        "requestOptions": {}
+      },
+      "id": "8a92fb9a-9b46-4ca1-9c9e-e873b60e7808",
+      "name": "Restore n8n Credentials",
+      "type": "n8n-nodes-base.n8n",
+      "position": [
+        1680,
+        360
+      ],
+      "typeVersion": 1,
+      "credentials": {
+        "n8nApi": {
+          "id": "RccYynwbEeNjobHb",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "or",
+          "conditions": [
+            {
+              "id": "ad031296-4ac0-4087-bc35-7975a2cc25e6",
+              "operator": {
+                "type": "object",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.data }}",
+              "rightValue": ""
+            },
+            {
+              "id": "ca912a57-6a4b-4b9a-be0e-37b69d3e4917",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              },
+              "leftValue": "={{ $json.data.name }}",
+              "rightValue": "n8n account"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b9ddfb70-426f-4770-b23d-0254c9c78cad",
+      "name": "Check for skipped Credentials",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1400,
+        340
+      ],
+      "typeVersion": 2.2
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-10T14:12:13.246Z",
+  "versionId": "4a69589b-b434-4540-98f9-5b29d9384fc4"
+}
