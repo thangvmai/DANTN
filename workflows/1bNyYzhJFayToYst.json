@@ -218,7 +218,7 @@
       "credentials": {
         "postgres": {
           "id": "ZahZeTe9M5p48bfR",
-          "name": "Postgres account"
+          "name": "database"
         }
       }
     },
@@ -380,7 +380,9 @@
       "name": "Code"
     },
     {
-      "parameters": {},
+      "parameters": {
+        "description": "=Dựa trên bảng kichban và produce_price chứa danh sách câu hỏi khách hàng và giá dịch vụ spa, hãy viết câu trả lời lịch sự, chuyên nghiệp và dễ hiểu cho từng câu hỏi.\n\nPhân loại các câu hỏi trong bảng thành từng nhóm: \n1. Hỏi về giá cả\n2. Hỏi về liệu trình\n3. Hỏi về khuyến mãi\n4. Hỏi về lịch làm\nTừ bảng kichban và produce_price, hãy viết đoạn hội thoại chatbot mẫu cho mỗi nhóm dịch vụ, như: triệt lông, chăm sóc da, massage, gội đầu.\nHãy dùng file này để tạo câu trả lời tự động theo từng dòng câu hỏi.\n"
+      },
       "type": "@n8n/n8n-nodes-langchain.toolThink",
       "typeVersion": 1,
       "position": [
@@ -414,6 +416,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-06-25T15:55:06.427Z",
-  "versionId": "428aa532-2117-453c-ae23-1897625e609b"
+  "updatedAt": "2025-06-26T13:51:52.148Z",
+  "versionId": "3f6a15e1-7a15-4285-9583-ccb12eb22f5e"
 }
