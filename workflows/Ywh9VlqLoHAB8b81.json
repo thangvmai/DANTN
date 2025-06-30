@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Postgres Chat Memory": {
       "ai_memory": [
@@ -395,6 +395,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-06-26T13:28:41.897Z",
+  "updatedAt": "2025-06-29T11:51:53.823Z",
   "versionId": "13c4c2d1-6868-48d7-8b90-467e0d438298"
 }
