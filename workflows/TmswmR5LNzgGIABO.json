@@ -1,0 +1,61 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-30T08:07:18.210Z",
+  "id": "TmswmR5LNzgGIABO",
+  "isArchived": true,
+  "meta": null,
+  "name": "trave_wp",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -520,
+        -80
+      ],
+      "id": "20390328-4793-4951-b0da-9657876e0710",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://dichvun8n.click/webhook/a54e8b62-8876-412a-82ae-4c765108c63d",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n\"body\":{\"entry\":[{\"messaging\":[{\"message\":{\n\"text\": \"Hello\"\n}}]}]}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -360,
+        -100
+      ],
+      "id": "e749b257-fe6a-46ac-918f-f1d479d1efc7",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-07-14T12:37:41.719Z",
+  "versionId": "0aafac7a-904c-4efd-a75e-927406e77d4f"
+}
