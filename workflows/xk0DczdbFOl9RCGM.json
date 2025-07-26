@@ -1,0 +1,372 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-30T07:35:51.195Z",
+  "id": "xk0DczdbFOl9RCGM",
+  "isArchived": true,
+  "meta": null,
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "path": "a54e8b62-8876-412a-82ae-4c765108c63d",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -520,
+        140
+      ],
+      "id": "739299e6-52bc-4e5d-b973-dd1bc0515343",
+      "name": "Webhook",
+      "webhookId": "a54e8b62-8876-412a-82ae-4c765108c63d"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.query['hub.challenge'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.3,
+      "position": [
+        -160,
+        -60
+      ],
+      "id": "cda98cf2-8eb4-4d03-9166-11ab7ae046d6",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json['nội dung tin nhắn'] }}",
+        "options": {
+          "systemMessage": "Bạn là nhân viên chăm sóc khách hàng thân thiện, lịch sự của cửa hàng MỸ PHẨM, SPA LÀM ĐẸP Calla De Beauté.\n\nPHÂN TÍCH KĨ YÊU CẦU \"[Execute previous nodes for preview]\".\n\nLUÔN LUÔN HỎI TÊN KHÁCH HÀNG TRƯỚC KHI HỖ TRỢ.\n\nBẠN CÓ CÁC CÔNG CỤ DƯỚI ĐÂY, HÃY LUÔN LỰA CHỌN CÔNG CỤ PHÙ HỢP NHẤT ĐỂ FAQ VỚI KHÁCH HÀNG.\n\n1. Công cụ \"product_price\": LÀ CÔNG CỤ SỬ DỤNG ĐỂ LẤY GIÁ SẢN PHẨM.\n2. Công cụ \"kichban\": Là công cụ sử dụng để lấy các câu trả lời tư vấn.\n\nLUÔN LUÔN sử dụng 1 trong các công cụ  để lấy thông tin và trả lời khách hàng. KHÔNG ĐƯỢC PHÉP GIẢI THÍCH BẰNG CÁC THÔNG TIN BÊN NGOÀI, CHỈ ĐƯỢC PHÉP LẤY CÁC THÔNG TIN TỪ NỘI BỘ. KHÔNG ĐƯỢC PHÉP THÔNG BÁO VỚI KHÁCH HÀNG KHI LƯU TRỮ DỮ LIỆU CỦA KHÁCH HÀNG.\n\n\nLƯU Ý: KHÔNG ĐƯỢC PHÉP TRẢ LỜI CÁC CÂU HỎI KHÔNG LIÊN QUAN TỚI CỬA HÀNG.\n\n",
+          "batching": {}
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        320,
+        0
+      ],
+      "id": "cf4096de-bf46-4f86-b826-8fdc4e6ac6b0",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('If').item.json.body.entry[0].messaging[0].sender.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        400,
+        260
+      ],
+      "id": "4b584c67-88d9-4caf-958b-0367bea3c4ec",
+      "name": "Postgres Chat Memory"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get row(s) in sheet in Google Sheet",
+        "documentId": {
+          "__rl": true,
+          "value": "1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY",
+          "mode": "list",
+          "cachedResultName": " BẢNG GIÁ SPA và câu hỏi thường gặp",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "GIÁ SẢN PHẨM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        540,
+        280
+      ],
+      "id": "d889c503-fcca-4c67-83e8-d3e4816f2567",
+      "name": "Google Sheets"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0361eddf-7def-4ecb-ab7a-b6016c5086ad",
+              "leftValue": "={{ $json.body.entry[0].messaging[0].message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -280,
+        180
+      ],
+      "id": "ffab3898-4ce6-479a-bbd5-5f9cfd543c50",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "de20caad-716d-407f-b486-5fd7a86347ab",
+              "name": "id khách hàng",
+              "value": "={{ $json.body.entry[0].messaging[0].sender.id }}",
+              "type": "string"
+            },
+            {
+              "id": "00a33d2c-cc57-4811-a381-15307e636e09",
+              "name": "id page",
+              "value": "={{ $json.body.entry[0].messaging[0].recipient.id }}",
+              "type": "string"
+            },
+            {
+              "id": "757ad016-0bb6-45b7-ada2-02897fbf1d9c",
+              "name": "nội dung tin nhắn",
+              "value": "={{ $json.body.entry[0].messaging[0].message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": "={{ false }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        100
+      ],
+      "id": "668c54b2-5898-494c-a2ad-5db14a514832",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body ={\n  \"recipient\":{\n    \"id\":`${$('Edit Fields').first().json['id khách hàng']}`\n  },\n  \"message\":{\n    \"text\":`${$input.first().json.output}`\n  }\n}\nreturn {\n  data: body\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        0
+      ],
+      "id": "f1c01838-7aa4-418e-8ba0-cf3ea9f4af0a",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v23.0/650808194786249/messages/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer EAAaKackdsYsBOZCCZA7Tpm1rleADVm9N2jq2TTvwdpVsW7inSo00nIMqsZBsOhchojj6bhdFkZA2jlTM4kzTwwbQCUyJTmKl3C5NZCVHRvgvhQIAltUiK9YoNeN1qvf94ZAhvgi05xjMl3R5lfnRRLQa9lfoaXswEYeVjzJIAgD1H8unO5XsW3VZCUrPwD8noVjM7vx"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.data }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "32b45d7d-487a-467f-a800-002f2aeafcec",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY",
+          "mode": "list",
+          "cachedResultName": " BẢNG GIÁ SPA và câu hỏi thường gặp",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 521474106,
+          "mode": "list",
+          "cachedResultName": "Câu hỏi thường gặp",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY/edit#gid=521474106"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        700,
+        280
+      ],
+      "id": "3f62e8da-ef63-48f8-bd7d-61f244f56c89",
+      "name": "Google Sheets1"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        260,
+        260
+      ],
+      "id": "80c5059b-77e2-48d0-a852-f3bb983c588d",
+      "name": "Google Gemini Chat Model"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-06-30T07:40:37.457Z",
+  "versionId": "f45a7a96-7ac0-4c91-818a-e094eb620392"
+}
