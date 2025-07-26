@@ -1,0 +1,111 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-30T08:05:22.516Z",
+  "id": "CCprHTXqZojTWauv",
+  "isArchived": true,
+  "meta": null,
+  "name": "book",
+  "nodes": [
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "path": "book",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -140,
+        60
+      ],
+      "id": "96711d1e-a4f4-4436-bcda-db0f617a5621",
+      "name": "Webhook",
+      "webhookId": "43d3e193-73bd-475e-b23e-de3f435eb48f"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/calendar/v3/calendars/primary/events",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleCalendarOAuth2Api",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.body.json.toJsonString() }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        80,
+        60
+      ],
+      "id": "306a53ca-b47f-4e31-a1dc-c3487943d591",
+      "name": "HTTP Request",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "4PlSBqW2AGaWug0c",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        300,
+        60
+      ],
+      "id": "55c2375b-5e35-4483-bde5-df82a1c6b545",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-14T12:37:35.659Z",
+  "versionId": "f756510e-6f38-4852-8ea6-f4b407bcaea6"
+}
