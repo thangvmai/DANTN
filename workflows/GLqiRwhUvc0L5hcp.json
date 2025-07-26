@@ -1,0 +1,23 @@
+{
+  "active": false,
+  "connections": {},
+  "createdAt": "2025-06-30T05:58:26.436Z",
+  "id": "GLqiRwhUvc0L5hcp",
+  "isArchived": true,
+  "meta": null,
+  "name": "backup_workflow",
+  "nodes": [],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-26T07:17:20.263Z",
+  "versionId": "1a7d74db-9675-4c2b-9536-0105fd47631e"
+}
