@@ -1,0 +1,419 @@
+{
+  "active": false,
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "kichban": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "product_price": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Đầu ra chat box",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-06-30T08:06:12.544Z",
+  "id": "IuuYduXbevhOV3yw",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "chat_bot_wp",
+  "nodes": [
+    {
+      "parameters": {
+        "multipleMethods": true,
+        "path": "custom-wp",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -540,
+        80
+      ],
+      "id": "63658674-624c-4426-a239-93b583b8dcb4",
+      "name": "Webhook",
+      "webhookId": "a54e8b62-8876-412a-82ae-4c765108c63d"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.query['hub.challenge'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.3,
+      "position": [
+        -340,
+        -120
+      ],
+      "id": "633f079f-531a-4a69-92d4-2efa0a3e9410",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json['nội dung tin nhắn'] }}",
+        "options": {
+          "systemMessage": "=Bạn là nhân viên chăm sóc khách hàng thân thiện, lịch sự của cửa hàng MỸ PHẨM, SPA LÀM ĐẸP Calla De Beauté.\n\nPHÂN TÍCH KĨ YÊU CẦU \"{{ $json['nội dung tin nhắn'] }}\".\n\nLUÔN LUÔN HỎI TÊN KHÁCH HÀNG TRƯỚC KHI HỖ TRỢ.\n\nBẠN CÓ CÁC CÔNG CỤ DƯỚI ĐÂY, HÃY LUÔN LỰA CHỌN CÔNG CỤ PHÙ HỢP NHẤT ĐỂ FAQ VỚI KHÁCH HÀNG.\n\n1. Công cụ \"product_price\": LÀ CÔNG CỤ SỬ DỤNG ĐỂ LẤY GIÁ SẢN PHẨM.\n2. Công cụ \"kichban\": Là công cụ sử dụng để lấy các câu trả lời tư vấn.\n\nLUÔN LUÔN sử dụng 1 trong các công cụ  để lấy thông tin và trả lời khách hàng. KHÔNG ĐƯỢC PHÉP GIẢI THÍCH BẰNG CÁC THÔNG TIN BÊN NGOÀI, CHỈ ĐƯỢC PHÉP LẤY CÁC THÔNG TIN TỪ NỘI BỘ. KHÔNG ĐƯỢC PHÉP THÔNG BÁO VỚI KHÁCH HÀNG KHI LƯU TRỮ DỮ LIỆU CỦA KHÁCH HÀNG.\n\n\nLƯU Ý: KHÔNG ĐƯỢC PHÉP TRẢ LỜI CÁC CÂU HỎI KHÔNG LIÊN QUAN TỚI CỬA HÀNG.\n\n\n\n",
+          "batching": {}
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        220,
+        -20
+      ],
+      "id": "a26a59cb-e53a-46c6-b79e-0c9193e33485",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        60,
+        220
+      ],
+      "id": "8e0602a1-ad52-48d2-ae3a-e1b45d0ff37d",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "cvDmQPV0eW6SzUhX",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json['id khách hàng'] }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        280,
+        240
+      ],
+      "id": "90c585c4-4b63-4822-8703-b94bfa6e6721",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "72WeU25wTlM4V2TQ",
+          "name": "database"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "0361eddf-7def-4ecb-ab7a-b6016c5086ad",
+              "leftValue": "={{ $json.body.entry[0].messaging[0].message.text }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        180
+      ],
+      "id": "743a9b33-6ec3-4707-8a1b-5fb4834b05ff",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "de20caad-716d-407f-b486-5fd7a86347ab",
+              "name": "id khách hàng",
+              "value": "={{ $json.body.entry[0].messaging[0].sender.id }}",
+              "type": "string"
+            },
+            {
+              "id": "757ad016-0bb6-45b7-ada2-02897fbf1d9c",
+              "name": "nội dung tin nhắn",
+              "value": "={{ $json.body.entry[0].messaging[0].message.text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -100,
+        80
+      ],
+      "id": "2d01dce3-fb8d-4299-883e-974c8a2a1c68",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.3,
+      "position": [
+        1140,
+        -20
+      ],
+      "id": "61fe06ce-456a-47a5-aa16-6fac0ce9e2ed",
+      "name": "Đầu ra chat box"
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Get row(s) in sheet in Google Sheet",
+        "documentId": {
+          "__rl": true,
+          "value": "1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY",
+          "mode": "list",
+          "cachedResultName": " BẢNG GIÁ SPA và câu hỏi thường gặp",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 521474106,
+          "mode": "list",
+          "cachedResultName": "Câu hỏi thường gặp",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY/edit#gid=521474106"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        700,
+        240
+      ],
+      "id": "2a8ce32e-f847-4ad4-9ba1-7c9272291461",
+      "name": "kichban",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lsYErTPhKYeCMfc7",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY",
+          "mode": "list",
+          "cachedResultName": " BẢNG GIÁ SPA và câu hỏi thường gặp",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "GIÁ SẢN PHẨM",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1SpsZoNNo3RAOO1fCD60xEUwn48hdiIWfaNKAICYYYoY/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        560,
+        240
+      ],
+      "id": "ce905a0e-defb-4616-9eb6-96b6d102435f",
+      "name": "product_price",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lsYErTPhKYeCMfc7",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "function convertMarkdownToHtml(md) {\n      // Escape HTML\n      md = md.replace(/&/g, \"&amp;\").replace(/</g, \"&lt;\").replace(/>/g, \"&gt;\");\n\n      // Headers\n      md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');\n      md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');\n      md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');\n\n      // Bold and Italic\n      md = md.replace(/\\*\\*(.*?)\\*\\*/gim, '<strong>$1</strong>');\n      md = md.replace(/_(.*?)_/gim, '<em>$1</em>');\n\n      // Inline code\n      md = md.replace(/`(.*?)`/gim, '<code>$1</code>');\n\n      // Lists\n      md = md.replace(/^\\s*[-*] (.*)$/gim, '<li>$1</li>');\n      md = md.replace(/(<li>.*<\\/li>)/gim, '<ul>$1</ul>'); // Wrap list in <ul>\n\n      // Paragraphs\n      md = md.replace(/\\n{2,}/g, '</p><p>');\n      md = '<p>' + md + '</p>';\n\n      return md.trim();\n    }\nreturn {output: convertMarkdownToHtml($input.first().json.output).replaceAll('\\n','<br/>')};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        -20
+      ],
+      "id": "f4ad43ee-bf3b-4e9a-8a4e-b6f26c38182c",
+      "name": "Code"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        840,
+        220
+      ],
+      "id": "e41b2a94-4bea-47b7-bf3b-819b0e6ca599",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json['id khách hàng'] }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        200,
+        420
+      ],
+      "id": "0ee87bd7-0c39-4fca-9669-6184c6aa9c58",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {
+    "Webhook": []
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-07-14T12:37:33.130Z",
+  "versionId": "d6200635-3751-4f97-a572-c4e1103069e2"
+}
